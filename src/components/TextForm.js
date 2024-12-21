@@ -14,6 +14,7 @@ export default function TextForm(props) {
     const handleClearClick = ()=>{
       console.log("Clear Text was Clicked");
       setText('');
+      props.showAlert("Text has been cleared","success")
     }
     const handleOnChange = (event)=>{
         console.log("On Change");
@@ -22,22 +23,22 @@ export default function TextForm(props) {
     const [text, setText] = useState('');
   return (
     <>
-      <div className="container">
+      <div className="container" style={{color:props.mode==='light'?'black':'white'}}>
           <h1>{props.heading}</h1>
           <div className="mb-3">
-            <textarea className="form-control" value={text} onChange={handleOnChange} id="MyBox" rows="8"></textarea>
+            <textarea className="form-control" value={text} onChange={handleOnChange}  id="MyBox" rows="8"></textarea>
             <br></br>
             <button className="btn btn-primary mx-2" onClick={handleUpClick}>Convert to uppercase</button>
             <button className="btn btn-primary mx-2" onClick={handleLowClick}>Convert to lowercase</button>
             <button className="btn btn-primary mx-2" onClick={handleClearClick}>Clear Text</button>
           </div>
       </div>
-      <div className="container my-2">
+      <div className="container my-2" style={{color:props.mode==='light'?'black':'white'}}>
         <h1>Your text summary</h1>
-        <p>{text.split(" ").length} words, {text.length} characters</p>
-        <p>{0.008*text.split(" ").length} mins taken to read</p>
+        <p>{text.length>0?text.split(" ").length:0} words, {text.length} characters</p>
+        <p>{text.length>0?0.008*text.split(" ").length:0} mins taken to read</p>
         <h2>Preview</h2>
-        <p>{text}</p>
+        <p>{text.length>0?text:"Enter Something to Preview Here"}</p>
       </div>
     </>
   )
